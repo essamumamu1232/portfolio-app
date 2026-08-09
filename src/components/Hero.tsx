@@ -3,15 +3,18 @@ export default function Hero() {
     <section className="hero">
       <div className="hero-content">
         <div className="hero-glow" />
-        <h1>Essam Mubbashir</h1>
+        <div className="hero-eyebrow">Available for new projects</div>
+        <h1>I turn spreadsheet chaos into clean dashboards</h1>
         <p className="tagline">
-          I build internal dashboards and finance tools that save teams 10+ hours a week.
+          Finance teams waste 10+ hours a week on manual data entry. I build internal tools
+          that automate reporting, import CSVs in seconds, and give every role the right
+          access — shipped in under a week.
         </p>
-        <p className="sub">
-          Full Stack Open certified · React · TypeScript · Node · PostgreSQL
-        </p>
+        <div className="hero-pricing">
+          Fixed-price projects from <strong>$1,500</strong> · Prototype in 48 hours · No hourly billing
+        </div>
         <div className="hero-buttons">
-          <a href="#studio" className="btn btn-primary">Explore Projects</a>
+          <a href="#featured" className="btn btn-primary">View Live Demo</a>
           <a href="#contact" className="btn btn-ghost">Start a Project</a>
         </div>
       </div>
