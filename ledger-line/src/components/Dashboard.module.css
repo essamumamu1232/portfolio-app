@@ -1,0 +1,169 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.kpiCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: default;
+  transition: box-shadow var(--t-med), transform var(--t-med);
+}
+
+.kpiCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.kpiHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpiIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpiChange {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pos { color: var(--income); }
+.neg { color: var(--expense); }
+
+.kpiAmount {
+  font-size: 24px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.kpiLabel {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.chartsRow {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+}
+
+.chartCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chartSmall { }
+
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chartTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.chartPeriod {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.donutWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.donutLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.donutLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.donutDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.donutName {
+  font-size: 11px;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.donutPct {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.tooltip {
+  background: var(--text-primary);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.tooltipLabel {
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #cbd5e1;
+}
+
+.tooltipRow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}

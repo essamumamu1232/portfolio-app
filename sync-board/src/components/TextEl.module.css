@@ -1,0 +1,23 @@
+.textEl {
+  position: absolute;
+  cursor: grab;
+  padding: 4px 2px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: border-color var(--t-fast);
+}
+
+.textEl:hover { border-color: rgba(99,102,241,0.3); }
+
+.selected {
+  border-color: #6366f1 !important;
+}
+
+.content {
+  outline: none;
+  cursor: text;
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  min-width: 40px;
+  word-break: break-word;
+}

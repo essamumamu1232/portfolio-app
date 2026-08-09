@@ -1,0 +1,182 @@
+.sticky {
+  position: absolute;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  box-shadow: var(--sticky-shadow);
+  cursor: grab;
+  transition: box-shadow var(--t-fast), border-color var(--t-fast);
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px 10px;
+  min-height: 120px;
+  overflow: visible;
+}
+
+.sticky:hover {
+  box-shadow: var(--sticky-shadow-hover);
+}
+
+.sticky:active {
+  cursor: grabbing;
+}
+
+.selected {
+  border-color: #6366f1 !important;
+  box-shadow: var(--sticky-shadow-hover), 0 0 0 2px rgba(99,102,241,0.2) !important;
+}
+
+.tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 16px;
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+.menuBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity var(--t-fast), background var(--t-fast);
+}
+
+.sticky:hover .menuBtn { opacity: 0.6; }
+.menuBtn:hover { opacity: 1 !important; background: rgba(0,0,0,0.08); }
+
+.menu {
+  position: absolute;
+  top: 26px;
+  right: 6px;
+  background: #fff;
+  border: 1px solid var(--chrome-border);
+  border-radius: var(--r-md);
+  box-shadow: var(--toolbar-shadow);
+  z-index: 9999;
+  overflow: hidden;
+  min-width: 160px;
+  animation: slideUp 0.15s ease;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--t-fast);
+}
+.menuItem:hover { background: #f3f4f6; color: var(--text-primary); }
+
+.menuDanger { color: #dc2626 !important; }
+.menuDanger:hover { background: #fef2f2 !important; }
+
+.colorPicker {
+  display: flex;
+  gap: 4px;
+  padding: 6px 12px;
+  border-top: 1px solid var(--chrome-border);
+  border-bottom: 1px solid var(--chrome-border);
+}
+
+.colorSwatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform var(--t-fast);
+}
+.colorSwatch:hover { transform: scale(1.2); }
+
+.taskBar {
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+.statusSelect {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+.text {
+  font-family: var(--font-hand);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  flex: 1;
+  padding-top: 14px;
+}
+
+.editor {
+  font-family: var(--font-hand);
+  font-size: 13px;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  color: inherit;
+  width: 100%;
+  flex: 1;
+  padding-top: 14px;
+  line-height: 1.5;
+}
+
+.taskMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.assignee, .dueDate {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.5);
+  font-family: var(--font-sans);
+}
+
+.resizeHandle {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 10px;
+  height: 10px;
+  cursor: se-resize;
+  opacity: 0;
+  border-right: 2px solid rgba(0,0,0,0.3);
+  border-bottom: 2px solid rgba(0,0,0,0.3);
+}
+.sticky:hover .resizeHandle { opacity: 1; }

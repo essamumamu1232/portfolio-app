@@ -1,0 +1,123 @@
+.editorWrapper {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-base);
+}
+
+.cursorLabels {
+  position: absolute;
+  left: 64px;
+  top: 0;
+  pointer-events: none;
+  z-index: 50;
+  width: 0;
+}
+
+.cursorLabel {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: 3px 3px 3px 0;
+  white-space: nowrap;
+  opacity: 0.9;
+  transform: translateY(-100%);
+  left: 0;
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  pointer-events: none;
+  animation: fadeIn 0.2s ease;
+}
+
+.commentLine {
+  background: rgba(99, 102, 241, 0.06) !important;
+}
+
+.commentGlyph {
+  background: var(--accent) !important;
+  border-radius: 2px;
+  width: 4px !important;
+  left: 6px !important;
+}
+
+.addCommentBtn {
+  position: absolute;
+  left: 52px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  animation: fadeIn 0.1s ease;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+.addCommentBtn:hover {
+  transform: scale(1.2);
+  box-shadow: var(--shadow-glow);
+}
+
+.commentDraft {
+  position: absolute;
+  left: 68px;
+  right: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--accent);
+  border-radius: var(--r-md);
+  padding: 12px;
+  z-index: 200;
+  box-shadow: var(--shadow-lg), 0 0 30px var(--accent-glow);
+  animation: slideUp var(--t-fast) ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.commentDraftHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-light);
+}
+
+.commentTextarea {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  resize: vertical;
+  outline: none;
+  width: 100%;
+  line-height: 1.5;
+  transition: border-color var(--t-fast);
+}
+
+.commentTextarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.commentDraftFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.commentHint {
+  font-size: 10px;
+  color: var(--text-muted);
+}
