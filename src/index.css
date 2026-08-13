@@ -77,6 +77,40 @@ body::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Disable Framer Motion animations */
+  .framer-motion-disabled * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Custom cursor styling for fine pointers */
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-primary);
+    pointer-events: none;
+    z-index: 99999;
+    mix-blend-mode: difference;
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  }
+  .custom-cursor.active {
+    width: 44px;
+    height: 44px;
+    margin-left: -22px;
+    margin-top: -22px;
+    background-color: rgba(56, 189, 248, 0.15);
+    border-color: var(--accent-cta);
   }
 }
 

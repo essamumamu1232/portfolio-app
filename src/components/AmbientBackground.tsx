@@ -1,13 +1,19 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useMouseParallax } from '../hooks/useMouseParallax'
 import { floatNode } from '../lib/animations'
 
-const NODE_COUNT = 18
-
 export function AmbientBackground() {
   const { x, y } = useMouseParallax(0.02)
+  const [nodeCount, setNodeCount] = useState(14)
 
-  const nodes = Array.from({ length: NODE_COUNT }, (_, i) => ({
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const isMobile = window.innerWidth < 768 || 'ontouchstart' in window
+    setNodeCount(isMobile ? 8 : 14)
+  }, [])
+
+  const nodes = Array.from({ length: nodeCount }, (_, i) => ({
     id: i,
     size: Math.random() * 6 + 2,
     x: Math.random() * 100,
@@ -29,7 +35,7 @@ export function AmbientBackground() {
       />
 
       {/* Floating nodes */}
-      <motion.div style={{ x, y, position: 'absolute', inset: 0 }}>
+      <motion.div style={{ x, y, position: 'absolute', inset: 0, willChange: 'transform' }}>
         {nodes.map((node) => {
           const fn = floatNode(node.delay, node.duration)
           return (

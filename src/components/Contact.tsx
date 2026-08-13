@@ -3,13 +3,19 @@ import { Mail, Calendar, Sparkles } from 'lucide-react'
 import { fadeSlideUp, scaleIn } from '../lib/animations'
 import { useMagnetic } from '../hooks/useMagnetic'
 
+const now = new Date()
+const currentMonth = now.getMonth() + 1
+const quarter = Math.ceil(currentMonth / 3)
+const year = now.getFullYear()
+const nextQuarterText = quarter === 4 ? `Q1 ${year + 1}` : `Q${quarter + 1} ${year}`
+
 const contactCopy = {
   eyebrow: 'Start a Project',
   headline: 'Have a dashboard that needs building?',
   subheadline: 'I work with small teams and founders who need tools that work — not PowerPoints that promise.',
   cta: 'Send Me An Email',
   email: 'essam.mubbashir@gmail.com',
-  availability: 'Currently available for new projects'
+  availability: `Currently available for ${nextQuarterText}`
 }
 
 export default function Contact() {
@@ -48,8 +54,6 @@ export default function Contact() {
             href={`mailto:${contactCopy.email}`}
             className="btn"
             style={{
-              x: magneticCTA.x,
-              y: magneticCTA.y,
               display: 'inline-flex',
               alignItems: 'center',
               gap: '12px',

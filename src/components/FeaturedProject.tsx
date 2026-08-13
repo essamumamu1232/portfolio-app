@@ -6,6 +6,10 @@ import ProjectViewport from './ProjectViewport'
 import { useStore } from '../store'
 import { projects } from '../data/projects'
 
+const isTouchDevice = typeof window !== 'undefined' 
+  ? ('ontouchstart' in window || navigator.maxTouchPoints > 0) 
+  : false
+
 const projectsCopy = {
   eyebrow: 'Selected Work',
   headline: 'Real tools. Real outcomes.',
@@ -54,7 +58,7 @@ function ProjectCard({ card, isSelected, onSelect }: { card: typeof projectsCopy
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 300, damping: 30 })
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return
+    if (isTouchDevice || !cardRef.current) return
     const rect = cardRef.current.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
@@ -67,6 +71,7 @@ function ProjectCard({ card, isSelected, onSelect }: { card: typeof projectsCopy
   }
 
   const handleMouseLeave = () => {
+    if (isTouchDevice) return
     mouseX.set(0)
     mouseY.set(0)
   }
@@ -87,29 +92,56 @@ function ProjectCard({ card, isSelected, onSelect }: { card: typeof projectsCopy
         border: isSelected ? '1px solid var(--accent-primary)' : '1px solid var(--border-default)',
         boxShadow: isSelected ? '0 0 25px rgba(56, 189, 248, 0.2)' : 'none',
         backdropFilter: 'blur(16px)',
-        rotateX,
-        rotateY,
+        rotateX: isTouchDevice ? 0 : rotateX,
+        rotateY: isTouchDevice ? 0 : rotateY,
         transformStyle: 'preserve-3d',
         perspective: 1000,
         overflow: 'hidden'
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileHover={{ scale: 1.02, borderColor: 'var(--border-hover)' }}
+      whileHover={isTouchDevice ? {} : { scale: 1.02, borderColor: 'var(--border-hover)' }}
       transition={{ duration: 0.3, ease: easeOutExpo as any }}
     >
       {/* Radial glow chase effect */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          opacity: 0.8,
-          pointerEvents: 'none',
-          background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(56, 189, 248, 0.1), transparent 60%)`
-        }}
-      />
+      {!isTouchDevice && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            opacity: 0.8,
+            pointerEvents: 'none',
+            background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(56, 189, 248, 0.1), transparent 60%)`
+          }}
+        />
+      )}
 
       <div style={{ position: 'relative', zIndex: 10 }}>
+        {/* Card Tab Strip */}
+        <div style={{ display: 'flex', gap: '6px', marginBottom: '14px' }}>
+          {['Overview', 'Interactive Demo', 'Source Code'].map((tab, idx) => (
+            <button
+              key={tab}
+              onClick={(e) => {
+                e.stopPropagation()
+                onSelect()
+              }}
+              style={{
+                padding: '3px 8px',
+                fontSize: '10px',
+                fontFamily: 'var(--font-mono)',
+                borderRadius: '4px',
+                background: idx === 1 && isSelected ? 'var(--accent-primary)' : 'rgba(0, 0, 0, 0.4)',
+                color: idx === 1 && isSelected ? 'var(--bg-base)' : 'rgba(255, 255, 255, 0.7)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                cursor: 'pointer'
+              }}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <span style={{ padding: '8px', borderRadius: '10px', background: 'var(--bg-elevated)', color: 'var(--accent-primary)' }}>
