@@ -1,36 +1,55 @@
-import { Menu, X, Github, Mail } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useStore } from '../store'
+import { useMagnetic } from '../hooks/useMagnetic'
 
 export default function Navbar() {
   const { menuOpen, toggleMenu } = useStore()
+  const magneticCta = useMagnetic(0.2)
 
   return (
-    <nav className="navbar">
-      <div className="container navbar-inner">
-        <a href="#" className="logo">ESSAM<span>.</span>DEV</a>
-        <div className="nav-links">
-          <a href="#featured">Projects</a>
+    <nav className="navbar" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(2, 6, 23, 0.8)', backdropFilter: 'blur(16px)', borderBottom: '1px solid var(--border-default)' }}>
+      <div className="container navbar-inner" style={{ height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <a href="#" className="logo" style={{ fontWeight: 800, fontSize: '18px', color: 'var(--text-primary)', textDecoration: 'none', letterSpacing: '-0.02em' }}>
+          ESSAM<span style={{ color: 'var(--accent-primary)' }}>.DEV</span>
+        </a>
+
+        <div className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
+          <a href="#projects">Work</a>
+          <a href="#toolkit">Toolkit</a>
           <a href="#credentials">Credentials</a>
-          <a href="#contact">Contact</a>
-          <div className="nav-social">
-            <a href="https://github.com/essamumamu1232" target="_blank" rel="noreferrer" aria-label="GitHub">
-              <Github size={20} />
-            </a>
-            <a href="mailto:essammubbashirbusiness@gmail.com" aria-label="Email">
-              <Mail size={20} />
-            </a>
-          </div>
+          <a href="#faq">FAQ</a>
+          <a
+            ref={magneticCta.ref as any}
+            onMouseMove={magneticCta.handleMouseMove}
+            onMouseLeave={magneticCta.handleMouseLeave}
+            href="#contact"
+            className="btn btn-primary"
+            style={{
+              padding: '8px 18px',
+              borderRadius: '8px',
+              background: 'var(--accent-primary)',
+              color: 'var(--bg-base)',
+              fontWeight: 600,
+              fontSize: '13px',
+              textDecoration: 'none'
+            }}
+          >
+            Let's Talk
+          </a>
         </div>
+
         <button className="mobile-menu-btn" onClick={toggleMenu} aria-label="Toggle menu">
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
+
       {menuOpen && (
-        <div className="mobile-nav open">
-          <a href="#featured" onClick={toggleMenu}>Projects</a>
+        <div className="mobile-nav open" style={{ background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)', padding: '20px' }}>
+          <a href="#projects" onClick={toggleMenu}>Work</a>
+          <a href="#toolkit" onClick={toggleMenu}>Toolkit</a>
           <a href="#credentials" onClick={toggleMenu}>Credentials</a>
+          <a href="#faq" onClick={toggleMenu}>FAQ</a>
           <a href="#contact" onClick={toggleMenu}>Contact</a>
-          <a href="https://github.com/essamumamu1232" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       )}
     </nav>

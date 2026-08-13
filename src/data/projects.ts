@@ -11,6 +11,20 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'ledger-line',
+    name: 'LedgerLine',
+    tagline: 'Multi-Organization Financial Dashboard',
+    description: 'Double-entry accounting dashboard for SaaS teams and multi-organization financial management.',
+    role: 'Full Stack Engineer',
+    stack: ['React 19', 'TypeScript', 'Vite', 'Recharts', 'PapaParse', 'Zustand'],
+    highlights: [
+      'Dynamic chart of accounts with interactive Recharts visualizations',
+      'PapaParse CSV transaction importing & auto-categorization',
+      'Organization switching with role-based access & audit trail'
+    ],
+    localUrl: './ledger-line/',
+  },
+  {
     id: 'code-stream',
     name: 'CodeStream',
     tagline: 'Real-Time Collaborative Code Review',
@@ -22,21 +36,7 @@ export const projects: Project[] = [
       'Line-by-line inline commenting threads with replies',
       'Simulated live cursor positions & participant status'
     ],
-    localUrl: 'http://localhost:5173',
-  },
-  {
-    id: 'ledger-line',
-    name: 'LedgerLine',
-    tagline: 'Multi-Tenant Financial Dashboard',
-    description: 'Enterprise double-entry accounting platform for SaaS and multi-organization financial management.',
-    role: 'Full Stack Engineer',
-    stack: ['React 19', 'TypeScript', 'Vite', 'Recharts', 'PapaParse', 'Zustand'],
-    highlights: [
-      'Dynamic chart of accounts with interactive Recharts visualizations',
-      'PapaParse CSV transaction importing & auto-categorization',
-      'Role-based tenant switching with complete audit trail'
-    ],
-    localUrl: 'http://localhost:3002',
+    localUrl: './code-stream/',
   },
   {
     id: 'sync-board',
@@ -50,6 +50,6 @@ export const projects: Project[] = [
       'Draggable sticky notes, shapes, text & element connectors',
       'Live multi-user cursor tracking with zoom/pan'
     ],
-    localUrl: 'http://localhost:5174',
+    localUrl: './sync-board/',
   },
 ]

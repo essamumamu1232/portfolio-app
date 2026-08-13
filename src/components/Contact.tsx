@@ -1,94 +1,81 @@
-import { Mail, Phone, Github, MessageSquare, ArrowRight, Copy, Check } from 'lucide-react'
-import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Mail, Calendar, Sparkles } from 'lucide-react'
+import { fadeSlideUp, scaleIn } from '../lib/animations'
+import { useMagnetic } from '../hooks/useMagnetic'
+
+const contactCopy = {
+  eyebrow: 'Start a Project',
+  headline: 'Have a dashboard that needs building?',
+  subheadline: 'I work with small teams and founders who need tools that work — not PowerPoints that promise.',
+  cta: 'Send Me An Email',
+  email: 'essam.mubbashir@gmail.com',
+  availability: 'Currently available for new projects'
+}
 
 export default function Contact() {
-  const [copied, setCopied] = useState<string | null>(null)
-
-  const handleCopy = (text: string, label: string) => {
-    navigator.clipboard.writeText(text)
-    setCopied(label)
-    setTimeout(() => setCopied(null), 2000)
-  }
+  const magneticCTA = useMagnetic(0.3)
 
   return (
-    <section id="contact" className="contact-section">
-      <div className="container">
-        <div className="contact-header">
-          <div className="contact-badge">
-            <MessageSquare size={15} />
-            <span>Direct Contact & Collaboration</span>
-          </div>
-          <h2>Start a Project Together</h2>
-          <p className="contact-sub">
-            Whether you need a custom web app, internal dashboard, finance software, or code review — reach out anytime.
-          </p>
-        </div>
+    <section id="contact" style={{ position: 'relative', padding: '100px 24px 120px', zIndex: 10 }}>
+      <motion.div
+        style={{ maxWidth: '640px', margin: '0 auto', textAlign: 'center' }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeSlideUp}
+      >
+        <span style={{ color: 'var(--accent-primary)', fontFamily: 'var(--font-mono)', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <Sparkles size={14} /> {contactCopy.eyebrow}
+        </span>
 
-        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', fontSize: '15px', maxWidth: '500px', margin: '0 auto 32px' }}>
-          Currently building my client base — I offer a free 30-minute workflow audit with no obligation. First project gets priority scheduling.
+        <h2 style={{ fontSize: 'var(--text-h2)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px', lineHeight: 1.2 }}>
+          {contactCopy.headline}
+        </h2>
+
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.0625rem', marginTop: '16px', lineHeight: 1.6 }}>
+          {contactCopy.subheadline}
         </p>
 
-        <div className="contact-cards-grid">
+        <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginTop: '20px' }}>
+          Currently building my client base — I offer a free 30-minute workflow audit with no obligation.
+        </p>
 
-          {/* 1. Email — primary */}
-          <div className="contact-card highlight">
-            <div className="contact-card-tag">Best for Proposals</div>
-            <div className="contact-card-icon accent">
-              <Mail size={24} />
-            </div>
-            <h3>Email Me</h3>
-            <p className="contact-card-value">essammubbashirbusiness@gmail.com</p>
-            <p className="contact-card-desc">Best for detailed project proposals, scopes, and contract inquiries. I reply within 24 hours.</p>
-            <div className="contact-card-actions">
-              <a href="mailto:essammubbashirbusiness@gmail.com" className="btn btn-primary btn-sm">
-                Send Email <ArrowRight size={14} />
-              </a>
-              <button onClick={() => handleCopy('essammubbashirbusiness@gmail.com', 'email')} className="btn btn-ghost btn-sm" title="Copy Email">
-                {copied === 'email' ? <Check size={14} style={{ color: 'var(--accent)' }} /> : <Copy size={14} />}
-                {copied === 'email' ? 'Copied' : 'Copy'}
-              </button>
-            </div>
-          </div>
-
-          {/* 2. GitHub — secondary */}
-          <div className="contact-card">
-            <div className="contact-card-icon">
-              <Github size={24} />
-            </div>
-            <h3>GitHub</h3>
-            <p className="contact-card-value">github.com/essamumamu1232</p>
-            <p className="contact-card-desc">Browse repositories, review commits, or send a GitHub message to discuss collaboration.</p>
-            <div className="contact-card-actions">
-              <a href="https://github.com/essamumamu1232" target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
-                Open GitHub <ArrowRight size={14} />
-              </a>
-              <button onClick={() => handleCopy('https://github.com/essamumamu1232', 'github')} className="btn btn-ghost btn-sm">
-                {copied === 'github' ? <Check size={14} style={{ color: 'var(--accent)' }} /> : <Copy size={14} />}
-                {copied === 'github' ? 'Copied' : 'Copy'}
-              </button>
-            </div>
-          </div>
-
-          {/* 3. WhatsApp — third */}
-          <div className="contact-card">
-            <div className="contact-card-icon">
-              <Phone size={24} />
-            </div>
-            <h3>WhatsApp / Phone</h3>
-            <p className="contact-card-value">+92 336 2243778</p>
-            <p className="contact-card-desc">Quick questions and short calls. Best for Pakistan-based clients and fast follow-ups.</p>
-            <div className="contact-card-actions">
-              <a href="https://wa.me/923362243778" target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
-                WhatsApp <ArrowRight size={14} />
-              </a>
-              <a href="tel:+923362243778" className="btn btn-ghost btn-sm">
-                Call
-              </a>
-            </div>
-          </div>
-
+        <div style={{ marginTop: '40px' }}>
+          <motion.a
+            ref={magneticCTA.ref as any}
+            onMouseMove={magneticCTA.handleMouseMove}
+            onMouseLeave={magneticCTA.handleMouseLeave}
+            href={`mailto:${contactCopy.email}`}
+            className="btn"
+            style={{
+              x: magneticCTA.x,
+              y: magneticCTA.y,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '16px 40px',
+              borderRadius: '16px',
+              background: 'var(--accent-cta)',
+              color: '#020617',
+              fontWeight: 700,
+              fontSize: '1.125rem',
+              textDecoration: 'none',
+              boxShadow: '0 0 35px var(--glow-cta)'
+            }}
+            variants={scaleIn}
+            whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(245, 158, 11, 0.4)' }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Mail size={22} />
+            <span>{contactCopy.cta}</span>
+          </motion.a>
         </div>
-      </div>
+
+        <div style={{ marginTop: '32px', display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '14px' }}>
+          <Calendar size={14} style={{ color: 'var(--accent-primary)' }} />
+          <span>{contactCopy.availability}</span>
+        </div>
+      </motion.div>
     </section>
   )
 }

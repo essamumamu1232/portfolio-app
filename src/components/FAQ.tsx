@@ -1,26 +1,28 @@
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown, HelpCircle } from 'lucide-react'
+import { fadeSlideUp } from '../lib/animations'
 
 const faqs = [
   {
     q: 'How much does a typical project cost?',
-    a: 'Most internal dashboards and finance tools I build for small teams range from $1,500 to $3,000, depending on data complexity, user roles, and integrations. I quote fixed prices after a 15-minute discovery call — no hourly billing, no surprise invoices.',
+    a: 'Most internal dashboards and tools I build for small teams range from $1,500 to $3,000, depending on data complexity, user roles, and integrations. I quote fixed prices after a 15-minute discovery call — no hourly billing, no surprise invoices.',
   },
   {
     q: 'How fast can you deliver?',
-    a: 'I ship a working prototype within 48 hours of project kickoff. This is not a mockup — it is real code, deployed to a live URL, that you can click and test. Final delivery is typically 5–7 business days.',
+    a: 'I deliver a working prototype within 48 hours of project kickoff. This gives you a live clickable link to test early. Full production deployment is typically completed within 5–7 business days.',
   },
   {
     q: 'What do you need from me to get started?',
-    a: 'A 30-minute call to map your workflow, plus any spreadsheets or data exports you currently use. I handle the architecture, design, and deployment. You just need to tell me what hurts.',
+    a: 'A 30-minute discovery call to map your workflow, plus any spreadsheets or data exports you currently use. I handle the architecture, design, and deployment. You just need to tell me what hurts.',
   },
   {
     q: 'Do you offer support after delivery?',
-    a: 'Yes — 30 days of bug fixes and minor tweaks are included. After that, I offer monthly retainer blocks for ongoing feature work.',
+    a: 'Yes — 30 days of bug fixes and minor tweaks are included. After that, I offer flexible monthly retainer blocks for ongoing feature work.',
   },
   {
     q: 'Are CodeStream, LedgerLine, and SyncBoard real products?',
-    a: 'They are production-grade demo systems built to the same standard as client work. LedgerLine uses multi-tenant architecture, role-based access control, and Dockerized deployment. The only difference is that demo data runs locally — client projects connect to live databases.',
+    a: 'They are interactive demo systems built using patterns used in client work: role-based access, typed APIs, interactive visualizations, and CI/CD pipelines. They give you a real hands-on feel for how your application will work.',
   },
   {
     q: 'Can I see the code?',
@@ -32,7 +34,7 @@ const faqs = [
   },
   {
     q: 'What is Full Stack Open?',
-    a: 'It is an official University of Helsinki course — not a bootcamp, not a MOOC vendor. It is a project-based curriculum where every certificate requires shipping working code to GitHub, passing automated tests, and manual review by university TAs. I hold certificates across the full curriculum: 14 ECTS, Grade 5.',
+    a: 'It is an official University of Helsinki course — a rigorous project-based curriculum where every certificate requires shipping working code to GitHub, passing automated tests, and manual review by university TAs. I hold certificates across the full curriculum: 14 ECTS, Grade 5.',
   },
   {
     q: 'Do you work with international clients?',
@@ -48,7 +50,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div style={{ borderBottom: '1px solid var(--border)', padding: '20px 0' }}>
+    <div style={{ borderBottom: '1px solid var(--border-default)', padding: '20px 0' }}>
       <button
         onClick={() => setOpen(!open)}
         style={{
@@ -58,53 +60,71 @@ function FAQItem({ q, a }: { q: string; a: string }) {
           alignItems: 'center',
           background: 'none',
           border: 'none',
-          color: 'var(--text-primary)',
-          fontSize: '16px',
-          fontWeight: 500,
-          textAlign: 'left',
           cursor: 'pointer',
-          padding: 0,
+          textAlign: 'left',
+          color: 'var(--text-primary)',
+          fontSize: '1.0625rem',
+          fontWeight: 600
         }}
       >
-        {q}
-        <ChevronDown
-          size={18}
-          style={{
-            color: 'var(--text-muted)',
-            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform var(--t-fast)',
-            flexShrink: 0,
-            marginLeft: '12px',
-          }}
-        />
-      </button>
-      {open && (
-        <p
-          style={{
-            marginTop: '12px',
-            fontSize: '15px',
-            color: 'var(--text-secondary)',
-            lineHeight: 1.7,
-            paddingRight: '32px',
-          }}
+        <span>{q}</span>
+        <motion.div
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ color: 'var(--accent-primary)', flexShrink: 0, marginLeft: '16px' }}
         >
-          {a}
-        </p>
-      )}
+          <ChevronDown size={20} />
+        </motion.div>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            style={{ overflow: 'hidden' }}
+          >
+            <p style={{ color: 'var(--text-secondary)', marginTop: '12px', fontSize: '0.9375rem', lineHeight: 1.6 }}>
+              {a}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
 
 export default function FAQ() {
   return (
-    <section id="faq" className="section">
-      <div className="container" style={{ maxWidth: '800px' }}>
-        <h2 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '48px', textAlign: 'center' }}>
-          Frequently Asked Questions
-        </h2>
-        {faqs.map((f, i) => (
-          <FAQItem key={i} q={f.q} a={f.a} />
-        ))}
+    <section id="faq" style={{ position: 'relative', padding: '100px 24px', zIndex: 10 }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <motion.div
+          style={{ textAlign: 'center', marginBottom: '48px' }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeSlideUp}
+        >
+          <span style={{ color: 'var(--accent-primary)', fontFamily: 'var(--font-mono)', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <HelpCircle size={14} /> Frequently Asked Questions
+          </span>
+          <h2 style={{ fontSize: 'var(--text-h2)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '8px' }}>
+            Everything You Need To Know
+          </h2>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeSlideUp}
+        >
+          {faqs.map((faq, index) => (
+            <FAQItem key={index} q={faq.q} a={faq.a} />
+          ))}
+        </motion.div>
       </div>
     </section>
   )
