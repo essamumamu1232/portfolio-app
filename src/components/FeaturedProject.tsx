@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { ExternalLink, Github, Sparkles, Layers, Terminal, LayoutDashboard } from 'lucide-react'
+import { ExternalLink, Github, Sparkles, Layers, Terminal, LayoutDashboard, Play } from 'lucide-react'
 import { staggerContainer, staggerItem, fadeSlideUp, easeOutExpo } from '../lib/animations'
 import ProjectViewport from './ProjectViewport'
 import { useStore } from '../store'
@@ -21,9 +21,9 @@ const projectsCopy = {
       subtitle: 'LedgerLine',
       description: 'Replaced disconnected spreadsheets with a real-time financial dashboard. Interactive chart of accounts, CSV importing, and role-based views.',
       tags: ['React 19', 'TypeScript', 'Recharts', 'PapaParse'],
-      featured: true,
-      icon: LayoutDashboard,
-      repoUrl: 'https://github.com/essamumamu1232/portfolio-app/tree/main/ledger-line'
+      demoUrl: './ledger-line/',
+      repoUrl: 'https://github.com/essamumamu1232/portfolio-app/tree/main/ledger-line',
+      icon: LayoutDashboard
     },
     {
       id: 'code-stream',
@@ -31,9 +31,9 @@ const projectsCopy = {
       subtitle: 'CodeStream',
       description: 'Monaco code editor with side-by-side diff viewer, line-by-line inline comments, and simulated multi-user cursors.',
       tags: ['Monaco Editor', 'Framer Motion', 'Zustand'],
-      featured: false,
-      icon: Terminal,
-      repoUrl: 'https://github.com/essamumamu1232/portfolio-app/tree/main/code-stream'
+      demoUrl: './code-stream/',
+      repoUrl: 'https://github.com/essamumamu1232/portfolio-app/tree/main/code-stream',
+      icon: Terminal
     },
     {
       id: 'sync-board',
@@ -41,9 +41,9 @@ const projectsCopy = {
       subtitle: 'SyncBoard',
       description: 'Visual canvas for team brainstorming with draggable sticky notes, shapes, connectors, and multi-user cursor tracking.',
       tags: ['React Konva', 'HTML5 Canvas', 'Zustand'],
-      featured: false,
-      icon: Layers,
-      repoUrl: 'https://github.com/essamumamu1232/portfolio-app/tree/main/sync-board'
+      demoUrl: './sync-board/',
+      repoUrl: 'https://github.com/essamumamu1232/portfolio-app/tree/main/sync-board',
+      icon: Layers
     }
   ]
 }
@@ -151,17 +151,6 @@ function ProjectCard({ card, isSelected, onSelect }: { card: typeof projectsCopy
               {card.subtitle}
             </span>
           </div>
-
-          <a
-            href={card.repoUrl}
-            target="_blank"
-            rel="noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            style={{ color: 'var(--text-muted)', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '13px', textDecoration: 'none' }}
-            className="hover-bright"
-          >
-            <Github size={14} /> Source <ExternalLink size={12} />
-          </a>
         </div>
 
         <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '10px', lineHeight: 1.3 }}>
@@ -172,7 +161,7 @@ function ProjectCard({ card, isSelected, onSelect }: { card: typeof projectsCopy
           {card.description}
         </p>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
           {card.tags.map((tag) => (
             <span
               key={tag}
@@ -189,6 +178,52 @@ function ProjectCard({ card, isSelected, onSelect }: { card: typeof projectsCopy
               {tag}
             </span>
           ))}
+        </div>
+
+        {/* Direct Action Links (View Demo & View Code) */}
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '16px', borderTop: '1px solid var(--border-default)' }}>
+          <a
+            href={card.demoUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '8px',
+              background: 'var(--accent-primary)',
+              color: 'var(--bg-base)',
+              fontWeight: 600,
+              fontSize: '13px',
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <Play size={14} /> View Demo <ExternalLink size={12} />
+          </a>
+
+          <a
+            href={card.repoUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: '1px solid var(--border-default)',
+              background: 'var(--bg-elevated)',
+              color: 'var(--text-primary)',
+              fontWeight: 500,
+              fontSize: '13px',
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <Github size={14} /> View Code
+          </a>
         </div>
       </div>
     </motion.div>

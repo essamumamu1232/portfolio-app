@@ -3,6 +3,7 @@ import CustomCursor from './components/CustomCursor'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import FeaturedProject from './components/FeaturedProject'
+import HowItWorks from './components/HowItWorks'
 import Toolkit from './components/Toolkit'
 import Credentials from './components/Credentials'
 import FAQ from './components/FAQ'
@@ -17,6 +18,7 @@ function App() {
       <Navbar />
       <Hero />
       <FeaturedProject />
+      <HowItWorks />
       <Toolkit />
       <Credentials />
       <FAQ />
