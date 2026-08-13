@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://incandescent-quokka-b066d4.netlify.app/sitemap.xml

@@ -24,6 +24,10 @@ export default function Contact() {
           </p>
         </div>
 
+        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', fontSize: '15px', maxWidth: '500px', margin: '0 auto 32px' }}>
+          Currently building my client base — I offer a free 30-minute workflow audit with no obligation. First project gets priority scheduling.
+        </p>
+
         <div className="contact-cards-grid">
 
           {/* 1. Email — primary */}

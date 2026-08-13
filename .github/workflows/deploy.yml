@@ -1,0 +1,75 @@
+name: Deploy Portfolio Studio Hub to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Root Dependencies & Build Root App
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build LedgerLine
+        run: |
+          cd ledger-line
+          npm ci
+          npm run build
+          cd ..
+          mkdir -p dist/ledger-line
+          cp -r ledger-line/dist/* dist/ledger-line/
+
+      - name: Build CodeStream
+        run: |
+          cd code-stream
+          npm ci
+          npm run build
+          cd ..
+          mkdir -p dist/code-stream
+          cp -r code-stream/dist/* dist/code-stream/
+
+      - name: Build SyncBoard
+        run: |
+          cd sync-board
+          npm ci
+          npm run build
+          cd ..
+          mkdir -p dist/sync-board
+          cp -r sync-board/dist/* dist/sync-board/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

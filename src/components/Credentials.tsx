@@ -24,25 +24,25 @@ const certificates: CertItem[] = [
     title: 'GraphQL (Part 8)',
     ects: '1 ECTS',
     desc: 'Apollo Server, Apollo Client, GraphQL schemas, queries, mutations, and real-time WebSocket subscriptions.',
-    img: '/certificate-0.png',
+    img: '/certificate-6.png',
   },
   {
     id: 'part-9',
     title: 'TypeScript (Part 9)',
     ects: '1 ECTS',
     desc: 'TypeScript CLI toolchain, strict type safety, end-to-end typed Express backends and React frontends.',
-    img: '/certificate-1.png',
+    img: '/certificate-5.png',
   },
   {
     id: 'part-10',
     title: 'React Native (Part 10)',
     ects: '2 ECTS',
     desc: 'Mobile application development using Expo, React Native components, hooks, styling, and native APIs.',
-    img: '/certificate-2.png',
+    img: '/certificate-4.png',
   },
   {
     id: 'part-11',
-    title: 'CI/CD Pipelines (Part 11)',
+    title: 'CI/CD — Continuous Integration (Part 11)',
     ects: '1 ECTS',
     desc: 'Automated workflow pipelines using GitHub Actions, linting, automated testing, and zero-downtime deployment.',
     img: '/certificate-3.png',
@@ -52,23 +52,24 @@ const certificates: CertItem[] = [
     title: 'Containers & Docker (Part 12)',
     ects: '1 ECTS',
     desc: 'Docker containers, multi-stage Dockerfiles, Docker Compose, environment management, and multi-container orchestration.',
-    img: '/certificate-4.png',
+    img: '/certificate-2.png',
   },
   {
     id: 'part-13',
     title: 'Relational Databases & SQL (Part 13)',
     ects: '1 ECTS',
     desc: 'PostgreSQL, Sequelize ORM, database migrations, complex SQL queries, transactions, and relational data modeling.',
-    img: '/certificate-5.png',
+    img: '/certificate-1.png',
   },
   {
     id: 'part-14',
     title: 'Next.js & Full Stack React (Part 14)',
     ects: '1 ECTS',
     desc: 'Server-Side Rendering (SSR), Static Site Generation (SSG), App Router, server actions, and modern React architecture.',
-    img: '/certificate-6.png',
+    img: '/certificate-0.png',
   },
 ]
+
 
 export default function Credentials() {
   const [expanded, setExpanded] = useState(false)
