@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build && cd ledger-line && npm ci && npm run build && cd .. && mkdir -p dist/ledger-line && cp -r ledger-line/dist/* dist/ledger-line/ && cd code-stream && npm ci && npm run build && cd .. && mkdir -p dist/code-stream && cp -r code-stream/dist/* dist/code-stream/ && cd sync-board && npm ci && npm run build && cd .. && mkdir -p dist/sync-board && cp -r sync-board/dist/* dist/sync-board/"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
