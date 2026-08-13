@@ -1,19 +1,28 @@
+import { lazy, Suspense } from 'react'
 import { useStore } from '../store'
 import { Monitor, Smartphone, Maximize2 } from 'lucide-react'
 import { projects } from '../data/projects'
-import CodeStreamPreview from './CodeStreamPreview'
-import LedgerLinePreview from './LedgerLinePreview'
-import SyncBoardPreview from './SyncBoardPreview'
 
-const previews = {
-  'code-stream': <CodeStreamPreview />,
-  'ledger-line': <LedgerLinePreview />,
-  'sync-board': <SyncBoardPreview />,
-}
+const CodeStreamPreview = lazy(() => import('./CodeStreamPreview'))
+const LedgerLinePreview = lazy(() => import('./LedgerLinePreview'))
+const SyncBoardPreview = lazy(() => import('./SyncBoardPreview'))
 
 export default function ProjectViewport() {
   const { activeProject, viewportMode, setViewportMode } = useStore()
   const project = projects.find((p) => p.id === activeProject)!
+
+  const renderPreview = () => {
+    switch (activeProject) {
+      case 'code-stream':
+        return <CodeStreamPreview />
+      case 'ledger-line':
+        return <LedgerLinePreview />
+      case 'sync-board':
+        return <SyncBoardPreview />
+      default:
+        return <LedgerLinePreview />
+    }
+  }
 
   return (
     <div className="viewport-container">
@@ -43,7 +52,7 @@ export default function ProjectViewport() {
             <Smartphone size={16} />
           </button>
           <button
-            title="Open local app"
+            title="Open demo app"
             onClick={() => window.open(project.localUrl, '_blank')}
           >
             <Maximize2 size={16} />
@@ -51,7 +60,13 @@ export default function ProjectViewport() {
         </div>
       </div>
       <div className={`viewport-frame ${viewportMode}`}>
-        {previews[activeProject]}
+        <Suspense fallback={
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
+            Loading preview interactive viewport...
+          </div>
+        }>
+          {renderPreview()}
+        </Suspense>
       </div>
     </div>
   )
